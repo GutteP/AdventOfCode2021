@@ -1,31 +1,29 @@
-﻿using Library.Helpers;
+﻿using Day2;
+using Library.Helpers;
 
 Console.WriteLine("Day 2!");
-
-string[] instru = InputHelper.ReadTextFile("values.txt");
 
 int aim = 0;
 int depth = 0;
 int horizontal = 0;
 
-foreach (string ins in instru)
+foreach (string rawInstruction in InputHelper.ReadTextFile("Values.txt"))
 {
-    var sp = ins.Split(' ');
-    switch (sp[0])
+    (string Command, int Value) instruction = Helper.Deconstruct(rawInstruction);
+    switch (instruction.Command)
     {
         case "forward":
-            horizontal += int.Parse(sp[1]);
-            depth += int.Parse(sp[1]) * aim;
+            horizontal += instruction.Value;
+            depth += instruction.Value * aim;
             break;
         case "down":
-            aim += int.Parse(sp[1]);
+            aim += instruction.Value;
             break;
         case "up":
-            aim -= int.Parse(sp[1]);
+            aim -= instruction.Value;
             break;
         default:
             break;
     }
-
 }
 Console.WriteLine($"H: {horizontal}, D: {depth}, Multi: {horizontal * depth}");
