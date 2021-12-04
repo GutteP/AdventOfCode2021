@@ -10,6 +10,8 @@ namespace Day_4
     {
         private List<List<(int Value, bool Set)>> _board;
 
+        private bool done = false;
+
         public BingoBoard(IEnumerable<string> input)
         {
             _board = new List<List<(int, bool)>>();
@@ -28,6 +30,7 @@ namespace Day_4
 
         public bool Bingo(int num)
         {
+            if (done) return false;
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -35,7 +38,11 @@ namespace Day_4
                     if (_board[i][j].Value == num)
                     {
                         _board[i][j] = (_board[i][j].Value, true);
-                        if (Check(i, j)) return true;
+                        if (Check(i, j))
+                        {
+                            done = true;
+                            return true;
+                        }
                     }
                 }
             }

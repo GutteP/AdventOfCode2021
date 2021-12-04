@@ -2,7 +2,7 @@
 using Library.Helpers;
 
 Console.WriteLine("Day 4!");
-Console.WriteLine("\nPart 1\n");
+Console.WriteLine("\nPart 1 and 2\n");
 
 List<BingoBoard> _boards = new();
 
@@ -20,18 +20,25 @@ while(input.Count > 0)
         input.RemoveRange(0, 5);
     }
 }
-
+BingoBoard first = default;
+int numOfWins = 0;
 foreach (string num in randomNrs.Split(','))
 {
-    bool done = false;
     foreach (BingoBoard board in _boards)
     {
         if (board.Bingo(int.Parse(num)))
         {
-            Console.WriteLine($"BINGO! Result: {board.Calculate(int.Parse(num))}");
-            done = true;
-            break;
+            numOfWins++;
+            if (first == default)
+            {
+                Console.WriteLine($"First BINGO! Result: {board.Calculate(int.Parse(num))}");
+                first = board;
+            }       
+
+            if(numOfWins == 100)
+            {
+                Console.WriteLine($"Last BINGO! Result: {board.Calculate(int.Parse(num))}");
+            }
         }
     }
-    if (done) break;
 }

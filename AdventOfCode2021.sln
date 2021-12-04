@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day3", "Day3\Day3.csproj", "{0BC6F930-C41B-4F22-99D4-6F148ACE12B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day 4", "Day 4\Day 4.csproj", "{02D507B8-7894-44B5-9F22-2160AF752882}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day4", "Day 4\Day4.csproj", "{02D507B8-7894-44B5-9F22-2160AF752882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
