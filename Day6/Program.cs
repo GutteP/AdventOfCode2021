@@ -22,10 +22,10 @@ for (int i = 0; i < 80; i++)
 
 Console.WriteLine($"Find a way to simulate lanternfish. How many lanternfish would there be after 80 days? {school1.Count}");
 
+
 Console.WriteLine("\nPart 2");
-Console.WriteLine();
-List<int> school2 = Helper.Transform(InputHelper.ReadComplateTextFile("input.txt"));
-School school = new School(school2);
+
+School school = new School(Helper.Transform(InputHelper.ReadComplateTextFile("input.txt")));
 for (int i = 0; i < 256; i++)
 {
     school.Tick();
