@@ -1,7 +1,7 @@
 ﻿using Day5;
 using Library.Helpers;
 
-Console.WriteLine("Day 5!");
+Console.WriteLine("--- Day 7: The Treachery of Whales ---");
 Console.WriteLine("\nPart 1");
 
 List<(int x1, int y1, int x2, int y2)> lines = new();

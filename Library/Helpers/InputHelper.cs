@@ -24,5 +24,16 @@ namespace Library.Helpers
                 }
             }
         }
+
+        public static List<int> TransformToIntList(string[] input)
+        {
+            List<int> result = new();
+            string[] sp = input[0].Split(',');
+            foreach (var fish in sp)
+            {
+                result.Add(int.Parse(fish));
+            }
+            return result;
+        }
     }
 }
