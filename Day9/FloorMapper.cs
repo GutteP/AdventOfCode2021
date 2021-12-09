@@ -35,24 +35,21 @@ namespace Day9
             {
                 riskLevel += (floor[pos.i, pos.j] + 1);
             }
-
             return riskLevel;
         }
 
-        public static int SizeOfBasin(this int[,] floor, (int i, int j) lowPoint)
+        public static int SizeOfBasinRecursively(this int[,] floor, (int i, int j) lowPoint)
         {
             HashSet<(int, int)> partsOfBasin = new();
             partsOfBasin.Add(lowPoint);
-            partsOfBasin.UnionWith(floor.IsBasin(lowPoint));
+            partsOfBasin.UnionWith(floor.ExploreBasinRecursively(lowPoint));
             return partsOfBasin.Count;
         }
 
-        private static HashSet<(int, int)> IsBasin(this int[,] floor, (int i, int j) pos, HashSet<(int, int)> discoverd = null)
+        private static HashSet<(int, int)> ExploreBasinRecursively(this int[,] floor, (int i, int j) pos, HashSet<(int, int)> discoverd = null)
         {
             if (discoverd == null) discoverd = new();
-            int depth = floor.GetLength(0) - 1;
-            int width = floor.GetLength(1) - 1;
-            int v = floor[pos.i, pos.j];
+
             HashSet<(int, int)> newParts = new();
             if (pos.i != 0)
             {
@@ -62,21 +59,53 @@ namespace Day9
             {
                 if (floor[pos.i, pos.j - 1] != 9 && !discoverd.Contains((pos.i, pos.j - 1))) newParts.Add((pos.i, pos.j - 1));
             }
-            if (pos.i != depth)
+            if (pos.i != floor.GetLength(0) - 1)
             {
                 if (floor[pos.i + 1, pos.j] != 9 && !discoverd.Contains((pos.i + 1, pos.j))) newParts.Add((pos.i + 1, pos.j));
             }
-            if (pos.j != width)
+            if (pos.j != floor.GetLength(1) - 1)
             {
                 if (floor[pos.i, pos.j + 1] != 9 && !discoverd.Contains((pos.i, pos.j + 1))) newParts.Add((pos.i, pos.j + 1));
             }
-            var l = newParts.Count;
-            for (int i = 0; i < l; i++)
+
+            discoverd.UnionWith(newParts);
+
+            for (int i = 0; i < newParts.Count; i++)
             {
-                discoverd.UnionWith(newParts);
-                newParts.UnionWith(floor.IsBasin(newParts.ElementAt(i), discoverd));
+                discoverd.UnionWith(floor.ExploreBasinRecursively(newParts.ElementAt(i), discoverd));
             }
-            return newParts;
+            return discoverd;
+        }
+
+        public static int SizeOfBasin(this int[,] floor, (int i, int j) lowPoint)
+        {
+            HashSet<(int, int)> discoverd = new();
+            discoverd.Add(lowPoint);
+            discoverd.UnionWith(floor.ExploreBasin(discoverd));
+            return discoverd.Count;
+        }
+        private static HashSet<(int, int)> ExploreBasin(this int[,] floor, HashSet<(int i, int j)> discoverd)
+        {
+            for (int i = 0; i < discoverd.Count; i++)
+            {
+                if (discoverd.ElementAt(i).i != 0)
+                {
+                    if (floor[discoverd.ElementAt(i).i - 1, discoverd.ElementAt(i).j] != 9 && !discoverd.Contains((discoverd.ElementAt(i).i - 1, discoverd.ElementAt(i).j))) discoverd.Add((discoverd.ElementAt(i).i - 1, discoverd.ElementAt(i).j));
+                }
+                if (discoverd.ElementAt(i).j != 0)
+                {
+                    if (floor[discoverd.ElementAt(i).i, discoverd.ElementAt(i).j - 1] != 9 && !discoverd.Contains((discoverd.ElementAt(i).i, discoverd.ElementAt(i).j - 1))) discoverd.Add((discoverd.ElementAt(i).i, discoverd.ElementAt(i).j - 1));
+                }
+                if (discoverd.ElementAt(i).i != floor.GetLength(0) - 1)
+                {
+                    if (floor[discoverd.ElementAt(i).i + 1, discoverd.ElementAt(i).j] != 9 && !discoverd.Contains((discoverd.ElementAt(i).i + 1, discoverd.ElementAt(i).j))) discoverd.Add((discoverd.ElementAt(i).i + 1, discoverd.ElementAt(i).j));
+                }
+                if (discoverd.ElementAt(i).j != floor.GetLength(1) - 1)
+                {
+                    if (floor[discoverd.ElementAt(i).i, discoverd.ElementAt(i).j + 1] != 9 && !discoverd.Contains((discoverd.ElementAt(i).i, discoverd.ElementAt(i).j + 1))) discoverd.Add((discoverd.ElementAt(i).i, discoverd.ElementAt(i).j + 1));
+                }
+            }
+            return discoverd;
         }
     }
 }
