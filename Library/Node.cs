@@ -7,35 +7,20 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Node : IEquatable<Node>, IEqualityComparer<Node>
+    public record Node
     {
         public Node(string name)
         {
             Name = name;
-            Neighbors = new List<string>();
+            Neighbors = new List<(string Name, double Weight)>();
         }
         public string Name { get; private set; }
-        public List<string> Neighbors { get; private set; }
+        public List<(string Name, double Weight)> Neighbors { get; private set; }
 
-        public void AddNeighbor(Node n)
+        public void AddNeighbor(Node n, double? weight = 1)
         {
-            if (Neighbors.Contains(n.Name)) return;
-            else Neighbors.Add(n.Name);
-        }
-
-        public bool Equals(Node? other)
-        {
-            return Name == other.Name;
-        }
-
-        public bool Equals(Node? x, Node? y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetHashCode([DisallowNull] Node obj)
-        {
-            return obj.Name.GetHashCode();
+            if (Neighbors.Where(x => x.Name == n.Name).Any()) return;
+            else Neighbors.Add((n.Name, (double)weight));
         }
     }
 }
