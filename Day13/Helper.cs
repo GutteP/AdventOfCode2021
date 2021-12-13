@@ -11,10 +11,10 @@ namespace Day13
     {
         public static Map ToMap(this List<Position> positions)
         {
-            Map map = new Map(positions.MaxBy(x => x.Y).Y + 1, positions.MaxBy(y => y.X).X + 1);
+            Map map = new Map(positions.MaxBy(y => y.X).X + 1, positions.MaxBy(x => x.Y).Y + 1);
             foreach (Position p in positions)
             {
-                map.Set(p.Y, p.X, 1);
+                map.Set(p.X, p.Y, 1);
             }
             return map;
         }

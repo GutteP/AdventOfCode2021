@@ -4,7 +4,7 @@ using Library.Helpers;
 Console.WriteLine("Day 5!");
 Console.WriteLine("\nPart 1");
 
-List<int> submarinePositions = InputHelper.TransformToIntList(InputHelper.ReadComplateTextFile("input.txt"));
+List<int> submarinePositions = InputHelper.CommaSeparatedToIntList(InputHelper.ReadComplateTextFile("input.txt")[0]);
 
 //Arrange all submarine positions in a table where KEY is the position and VALUE the number of submarines on that position
 Dictionary<int, int> table = new Dictionary<int, int>();

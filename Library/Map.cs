@@ -10,7 +10,16 @@ namespace Library
     {
         public Map(int x, int y)
         {
-            Positions = new int[x, y];
+            Positions = new int[y, x];
+        }
+
+        public Map(List<Position> positions)
+        {
+            Positions = new int[positions.MaxBy(p => p.Y).Y+1, positions.MaxBy(p => p.X).X+1];
+            foreach (Position p in positions)
+            {
+                Set(p.X, p.Y, 1);
+            }
         }
 
         public int[,] Positions { get; private set; }
@@ -19,7 +28,7 @@ namespace Library
         {
             try
             {
-                Positions[x, y] = value;
+                Positions[y, x] = value;
                 return true;
             }
             catch (IndexOutOfRangeException)
@@ -36,7 +45,7 @@ namespace Library
         {
             try
             {
-                return Positions[p.X, p.Y];
+                return Positions[p.Y, p.X];
             }
             catch (IndexOutOfRangeException)
             {
@@ -46,12 +55,12 @@ namespace Library
 
         public void TickAll(bool down = false)
         {
-            for (int i = 0; i < Positions.GetLength(0); i++)
+            for (int y = 0; y < Positions.GetLength(1); y++)
             {
-                for (int j = 0; j < Positions.GetLength(1); j++)
+                for (int x = 0; x < Positions.GetLength(0); x++)
                 {
-                    if(!down)Positions[i, j]++;
-                    else if (down) Positions[i, j]--;
+                    if (!down) Positions[y, x]++;
+                    else if (down) Positions[y, x]--;
                 }
             }
         }
@@ -59,11 +68,11 @@ namespace Library
         public List<Position> GetAll(params int[] values)
         {
             List<Position> result = new();
-            for (int i = 0; i < Positions.GetLength(0); i++)
+            for (int y = 0; y < Positions.GetLength(1); y++)
             {
-                for (int j = 0; j < Positions.GetLength(1); j++)
+                for (int x = 0; x < Positions.GetLength(0); x++)
                 {
-                    if(values.Contains(Positions[i, j])) result.Add(new Position(i, j));
+                    if (values.Contains(Positions[y, x])) result.Add(new Position(x, y));
                 }
             }
             return result;
@@ -73,15 +82,14 @@ namespace Library
         {
             try
             {
-                if (down) Positions[p.X, p.Y]--;
-                else Positions[p.X, p.Y]++;
+                if (down) Positions[p.Y, p.X]--;
+                else Positions[p.Y, p.X]++;
                 return true;
             }
             catch (IndexOutOfRangeException)
             {
                 return false;
             }
-            
         }
     }
 }

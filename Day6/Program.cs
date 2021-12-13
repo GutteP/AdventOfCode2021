@@ -4,7 +4,7 @@ using Library.Helpers;
 Console.WriteLine("Day 6!");
 Console.WriteLine("\nPart 1");
 
-List<int> school1 = InputHelper.TransformToIntList(InputHelper.ReadComplateTextFile("input.txt"));
+List<int> school1 = InputHelper.CommaSeparatedToIntList(InputHelper.ReadComplateTextFile("input.txt")[0]);
 
 for (int i = 0; i < 80; i++)
 {
@@ -25,7 +25,7 @@ Console.WriteLine($"Find a way to simulate lanternfish. How many lanternfish wou
 
 Console.WriteLine("\nPart 2");
 
-School school = new School(InputHelper.TransformToIntList(InputHelper.ReadComplateTextFile("input.txt")));
+School school = new School(InputHelper.CommaSeparatedToIntList(InputHelper.ReadComplateTextFile("input.txt")[0]));
 for (int i = 0; i < 256; i++)
 {
     school.Tick();

@@ -25,10 +25,15 @@ namespace Library.Helpers
             }
         }
 
-        public static List<int> TransformToIntList(string[] input)
+        /// <summary>
+        /// Takes a comma separated string and splits it into a List<int>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static List<int> CommaSeparatedToIntList(string input)
         {
             List<int> result = new();
-            string[] sp = input[0].Split(',');
+            string[] sp = input.Split(',');
             foreach (var fish in sp)
             {
                 result.Add(int.Parse(fish));
@@ -36,6 +41,11 @@ namespace Library.Helpers
             return result;
         }
 
+        /// <summary>
+        /// Takes a IEnumerable of strings with the format "int,int"
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static List<Position> ToPositions(IEnumerable<string> input)
         {
             List<Position> positions = new();

@@ -69,7 +69,7 @@ for (int i = 1; i < foldInstructions.Length; i++)
     }
 }
 
-Map map = positions.ToMap();
+Map map = new Map(positions);
 map.Print();
 
 Console.WriteLine($"What code do you use to activate the infrared thermal imaging camera system?");

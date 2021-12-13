@@ -50,6 +50,36 @@ public class Pathfinding
         return response;
     }
 
+    //public Path FindShortestPath(Node start, Node end, double h)
+    //{
+    //    List<Node> openSet = new List<Node> { start };
+    //    List<Node> cameFrom = new();
+    //    List<(Node Node, double Score)> gScore = new List<(Node Node, double Score)> { (start, 0) };
+    //    List<(Node Node, double Score)> fScore = new List<(Node Node, double Score)> { (start, 0) };
+
+    //    while (openSet.Count != 0)
+    //    {
+    //        Node current = fScore.MinBy(n => n.Score).Node;
+    //        if (current == end) return ReconstructPath(cameFrom, current);
+    //        openSet.Remove(current);
+    //        foreach (var neighbor in current.Neighbors)
+    //        {
+    //            double tentativeGScore = gScore.Where(x => x.Node == current).FirstOrDefault().Score + neighbor.Weight;
+    //            if(gScore.Where(x => x.Node.Name == neighbor.Name).Any() && tentativeGScore < gScore.Where(x => x.Node.Name == neighbor.Name).FirstOrDefault().Score)
+    //            {
+    //                cameFrom.Add()
+    //            }
+    //        }
+
+    //    }
+
+    //}
+
+    //public Path ReconstructPath(List<Node> cameFrom, Node current)
+    //{
+    //    return new Path(cameFrom);
+    //}
+
 
 
     protected virtual bool IsVisitable(Node node, List<Node> visited)

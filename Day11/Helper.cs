@@ -20,6 +20,6 @@ namespace Day11
                 }
             }
             return map;
-        } 
+        }
     }
 }
