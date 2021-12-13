@@ -13,18 +13,6 @@ namespace Library
             Positions = new int[x, y];
         }
 
-        public Map(List<string> input)
-        {
-            Positions = new int[input.Count, input[0].Length];
-            for (int i = 0; i < input.Count; i++)
-            {
-                for (int j = 0; j < input[i].Length; j++)
-                {
-                    Positions[i,j] = (int)Char.GetNumericValue(input[i][j]);
-                }
-            }
-        }
-
         public int[,] Positions { get; private set; }
 
         public bool Set(int x, int y, int value)
@@ -94,20 +82,6 @@ namespace Library
                 return false;
             }
             
-        }
-
-        public void Print()
-        {
-            Console.WriteLine("\n");
-            for (int i = 0; i < Positions.GetLength(0); i++)
-            {
-                string row = "";
-                for (int j = 0; j < Positions.GetLength(1); j++)
-                {
-                    row += Positions[i, j].ToString();
-                }
-                Console.WriteLine(row);
-            }
         }
     }
 }

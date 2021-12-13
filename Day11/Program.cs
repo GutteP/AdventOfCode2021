@@ -1,10 +1,11 @@
 ﻿
+using Day11;
 using Library;
 using Library.Helpers;
 
 Console.WriteLine("--- Day 11: Dumbo Octopus ---");
 
-Map map = new Map(InputHelper.ReadComplateTextFile("input.txt").ToList());
+Map map = InputHelper.ReadComplateTextFile("input.txt").ToMap();
 int totalNumberOfFlashes = 0;
 bool part1done = false;
 bool part2done = false;

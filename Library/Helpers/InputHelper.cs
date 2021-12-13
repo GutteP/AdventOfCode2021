@@ -35,5 +35,16 @@ namespace Library.Helpers
             }
             return result;
         }
+
+        public static List<Position> ToPositions(IEnumerable<string> input)
+        {
+            List<Position> positions = new();
+            foreach (var p in input)
+            {
+                var sp = p.Split(',');
+                positions.Add(new Position(int.Parse(sp[0]), int.Parse(sp[1])));
+            }
+            return positions;
+        }
     }
 }
