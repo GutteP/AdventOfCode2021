@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//System.OutOfMemoryException: 'Array dimensions exceeded supported range.'
+
 namespace Day14
 {
     public class Polymerization
     {
-        public int Steps { get; private set; }
         public string Polymer { get; private set; }
 
         public Dictionary<string, PolymerRule> Rules { get; private set; }
 
         public Polymerization(string startingPolymer, List<PolymerRule> rules)
         {
-            Steps = 0;
             Polymer = startingPolymer;
             Rules = new Dictionary<string, PolymerRule>();
             foreach (var rule in rules)
@@ -26,46 +26,25 @@ namespace Day14
 
         public void Step()
         {
-            string newPolymer = Polymer[0].ToString();
+            Queue<char> newPolymer = new();
+            newPolymer.Enqueue(Polymer[0]);
             for (int i = 0; i < Polymer.Length - 1; i++)
             {
                 string part = Polymer.Substring(i, 2);
                 if (Rules.TryGetValue(part, out PolymerRule rule))
                 {
-                    newPolymer += string.Concat(rule.Insert, Polymer[i+1]);
+                    newPolymer.Enqueue(rule.Insert);
+                    newPolymer.Enqueue(Polymer[i + 1]);
                 }
-                else newPolymer += part.Substring(1);
+                else newPolymer.Enqueue(Polymer[i + 1]);
             }
-            Polymer = newPolymer;
+            StringBuilder sb = new StringBuilder(newPolymer.Count);
+            while(newPolymer.Count != 0)
+            {
+                sb.Append(newPolymer.Dequeue());
+            }
+            Polymer = sb.ToString();
         }
-
-        //public async Task StepAsync()
-        //{
-        //    string newPolymer = Polymer[0].ToString();
-        //    List<(char[] Part, long Num)> result = new();
-        //    List<Task<(string Part, long Num)>> tasks = new();
-        //    for (int i = 0; i < Polymer.Length - 1; i++)
-        //    {
-        //        string part = String.Concat(Polymer[i], Polymer[i + 1]);
-        //        if (Rules.TryGetValue(, out PolymerRule rule))
-        //        {
-        //            tasks.Add(Step(part, i, rule));
-        //        }
-        //        else result.Add((new char[1] { Polymer[i + 1] }, i));
-
-        //    }
-        //    await Task.WhenAll(tasks);
-
-        //    foreach (var task in tasks)
-        //    {
-        //        result.Add(await task);
-        //    }
-        //    foreach (var r in result.OrderBy(x => x.Num))
-        //    {
-        //        newPolymer += r.Part;
-        //    }
-        //    Polymer = newPolymer.ToCharArray();
-        //}
 
         public long ScorPart()
         {
@@ -95,25 +74,6 @@ namespace Day14
         public long Count(char c)
         {
             return Polymer.Where(x => x == c).Count();
-        }
-
-        //public async Task<(char[] Part, long Num)> Step(string part, long num, PolymerRule rule)
-        //{
-        //    if()
-        //    return (new char[2] { rule.Insert, part[1] }, num );
-
-        //}
-    }
-
-    public class PolymerRule
-    {
-        public string Pair { get; private set; }
-        public char Insert { get; private set; }
-
-        public PolymerRule(string pair, char insert)
-        {
-            Pair = pair;
-            Insert = insert;
         }
     }
 }
