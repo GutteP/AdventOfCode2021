@@ -50,41 +50,72 @@ public class Pathfinding
         return response;
     }
 
-    //public Path FindShortestPath(Node start, Node end, double h)
-    //{
-    //    List<Node> openSet = new List<Node> { start };
-    //    List<Node> cameFrom = new();
-    //    List<(Node Node, double Score)> gScore = new List<(Node Node, double Score)> { (start, 0) };
-    //    List<(Node Node, double Score)> fScore = new List<(Node Node, double Score)> { (start, 0) };
-
-    //    while (openSet.Count != 0)
-    //    {
-    //        Node current = fScore.MinBy(n => n.Score).Node;
-    //        if (current == end) return ReconstructPath(cameFrom, current);
-    //        openSet.Remove(current);
-    //        foreach (var neighbor in current.Neighbors)
-    //        {
-    //            double tentativeGScore = gScore.Where(x => x.Node == current).FirstOrDefault().Score + neighbor.Weight;
-    //            if(gScore.Where(x => x.Node.Name == neighbor.Name).Any() && tentativeGScore < gScore.Where(x => x.Node.Name == neighbor.Name).FirstOrDefault().Score)
-    //            {
-    //                cameFrom.Add()
-    //            }
-    //        }
-
-    //    }
-
-    //}
-
-    //public Path ReconstructPath(List<Node> cameFrom, Node current)
-    //{
-    //    return new Path(cameFrom);
-    //}
-
-
-
     protected virtual bool IsVisitable(Node node, List<Node> visited)
     {
         if (visited.Contains(node)) return false;
         return true;
+    }
+
+    protected virtual double DistanceToTarget(Node from, Node end)
+    {
+        return (Math.Abs(from.Position.X - end.Position.X) + Math.Abs(from.Position.Y - end.Position.Y));
+    }
+
+    public Path AStar(Node start, Node end)
+    {
+        List<Node> open = new List<Node> { start };
+        List<Node> closed = new();
+        Node current = default;
+
+        while (open.Count != 0 && !closed.Exists(x => x == end))
+        {
+            current = open[0];
+            open.Remove(current);
+            closed.Add(current);
+
+            foreach (var neighbor in current.Neighbors.OrderBy(x => x.Weight))
+            {
+                Node n = _nodes[neighbor.Name];
+                if (IsVisitable(n, closed))
+                {
+                    if (!open.Contains(n))
+                    {
+                        n.Parent = current;
+                        n.DistanceToTarget = DistanceToTarget(n, end);
+                        n.AccumulatedCost = n.Weight + n.Parent.AccumulatedCost;
+                        open.Add(n);
+                        open = open.OrderBy(node => node.FScore).ToList();
+                    }
+                }               
+            } 
+        }
+
+        if (!closed.Exists(x => x == end)) return null;       
+
+        return ReconstructPath(closed[closed.IndexOf(current)], start);
+    }
+
+    public double GetHCost(Node a, Node b)
+    {
+        double x = Math.Abs(a.Position.X - b.Position.X);
+        double y = Math.Abs(a.Position.Y - b.Position.Y);
+        return (x+y)*6;
+    }
+
+
+
+    public Path ReconstructPath(Node target, Node start)
+    {
+        double weight = target.AccumulatedCost;
+        Stack<Node> nodes = new();
+        if (target == null) return null;
+        do
+        {
+            nodes.Push(target);
+            target = target.Parent;
+        } while (target != start && target != null);
+        Path path = new Path(nodes);
+        path.Weight = weight;
+        return path;
     }
 }

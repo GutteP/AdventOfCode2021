@@ -4,7 +4,7 @@ namespace Library;
 public record Path
 {
     public IEnumerable<Node> Nodes { get; private set; }
-    public double Weight { get; private set; }
+    public double Weight { get; set; }
     public Path(IEnumerable<Node> nodes)
     {
         Nodes = nodes ?? throw new ArgumentNullException(nameof(nodes));
