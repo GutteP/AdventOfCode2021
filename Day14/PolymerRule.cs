@@ -25,8 +25,8 @@ namespace Day14
 
         public long CountWithSteps(char c, int steps, Dictionary<string, PolymerRule> rules)
         {
-            if (steps == 0) return /*(long)Pair.Where(x => x == c).Count()*/ 0;
-            long count = (long)Pair.Where(x => x == c).Count();
+            if (steps == 0) return 0;
+            long count = Insert == c ? 1 : 0;
             List<PolymerRule> s = new List<PolymerRule> { rules[String.Concat(Pair[0], Insert)], rules[String.Concat(Insert, Pair[1])] };
             foreach (PolymerRule r in s)
             {

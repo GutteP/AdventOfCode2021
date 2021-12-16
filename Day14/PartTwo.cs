@@ -95,6 +95,7 @@ namespace Day14
                     else counts.Add(rule.Pair, count);
                 }               
             }
+
             return counts.MaxBy(x => x.Value).Value - counts.MinBy(x => x.Value).Value;
         }
     }
