@@ -1,0 +1,433 @@
+﻿inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 14
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 12
+mul y x
+add z y
+inp w	
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 8
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 14
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 4
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 4
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 1
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -1
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 10
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 8
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -3
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 12
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -4
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -8
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 4
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y
+
+inp w
+x = 0
+x = x + z
+x = x % 26
+z = z / 26
+x = x - 11
+x = 0 || 1
+y = 0
+y = 25
+y = 25 || 0
+y = 26 || 1
+z = z * y
+y = 0
+y = (10 > 18)
+y = (10 > 18) || 0
+z = z + y
+z = 0
+
+z = (-18>-10) || 0
+
+
+
+w = (1>9)
+x = x * 0
+x = x + z
+x = x % 26
+z = z / 26
+x = x - 11
+x = x == w
+x = x == 0
+y = y * 0
+y = y + 25
+y = y * x
+y = y + 1
+z = z * y
+y = y * 0
+y = y + w
+y = y + 9
+y = y * x
+z = z + y
+z = 0
+
+w = (1>9)
+x = 0
+x = z
+x = x % 26
+z = z / 26
+x = x - 11
+x = x == w
+x = x == 0
+y = 0
+y = 25
+y = y * x
+y = y + 1
+z = z * y
+y = 0
+y = y + w
+y = y + 9
+y = y * x
+z = z + y
+z = 0
+
+w = 1 z = (z%26 = -10) -36 -62 38
+x = 0
+x = -36
+x = x % 26 = -10 12
+z = z / 26 = -1 -2 1
+x = x - 11 = 1
+x = x == w = 1
+x = x == 0 = 0
+y = 0
+y = 25
+y = y * x = 0
+y = y + 1 = 1
+z = z * y = -1 -2 1
+y = 0
+y = y + w = 1
+y = y + 9 = 10
+y = y * x = 0
+z = z + y = -1 -2 1
+z = 0
+
+w = 9 z = 20
+x = 0
+x = z = 20
+x = x % 26 = 20
+z = z / 26 = 0
+x = x - 11 = 9
+x = x == w = 1
+x = x == 0 = 0
+y = 0
+y = 25
+y = y * x = 0
+y = y + 1 = 1
+z = z * y = 0
+y = 0
+y = y + w 
+y = y + 9 = 18
+y = y * x  = 0
+z = z + y = 0
+z = 0
+
+w = 9 z = 20  w(1>9)z(12>20)
+
+
+
+w = ?     
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -8
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 4
+mul y x
+add z y
+
+
+w = (1>9) 
+x = x * 0
+x = x + z
+x = x % 26
+z = z / 26
+x = x - 8
+x = x == w
+x = x == 0
+y = y * 0
+y = y + 25
+y = y * x
+y = y + 1
+z = z * y
+y = y * 0
+y = y + w
+y = y + 9
+y = y * x
+z = z + y
+
+w = 6 z = 40 z = 66
+x = x * 0
+x = x + z
+x = x % 26 = 14
+z = z / 26 = 1 = 2
+x = x - 8 = 6
+x = x == w = 1
+x = x == 0 = 0
+y = y * 0
+y = y + 25
+y = y * x = 0
+y = y + 1 = 1
+z = z * y = 1 = 2
+y = y * 0 
+y = y + w = 6
+y = y + 9 = 15
+y = y * x = 0
+z = z + y = 1 = 2
+
+w = 9, y = 78
+x = x * 0
+x = x + z
+x = x % 26 = 0
+z = z / 26 = 3
+x = x - 8 
+x = x == w
+x = x == 0 = 1
+y = y * 0
+y = y + 25
+y = y * x
+y = y + 1
+z = z * y = 78
+y = y * 0
+y = y + w
+y = y + 9 = 18
+y = y * x = 18
+z = z + y = 96
+
+
+
+
+
+
+
+14
+w = 9 z = 20
+w(1>9)z(12>20)
+
+
+
+
+
+
