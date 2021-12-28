@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="BinaryProgram.txt">
+    <None Update="tinput2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="tinput1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="input.txt">

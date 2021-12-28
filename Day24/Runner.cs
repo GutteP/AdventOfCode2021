@@ -14,7 +14,7 @@ namespace Day24
         {
             alu = new Alu(InputHelper.ReadComplateTextFile("input.txt"));
         }
-        public string Run(int part = 14, int expected = 0)
+        public string Run(long part = 14, long expected = 0)
         {
             //List<(int, int)> ps = new();
             string result = "";
@@ -37,7 +37,7 @@ namespace Day24
             return "-1";
         }
 
-        public string Run2(int part = 1, int z = 0)
+        public string Run2(long part = 1, long z = 0)
         {
             string result = "";
             for (int i = 9; i > 0; i--)

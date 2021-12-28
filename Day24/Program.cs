@@ -5,6 +5,14 @@ using System.Diagnostics;
 Console.WriteLine("--- Day 24: Arithmetic Logic Unit ---");
 Console.WriteLine();
 Tester tester = new Tester();
+if (tester.TestBinaryProgram())
+{
+    Console.WriteLine("Binary program is VALID");
+}
+else
+{
+    Console.WriteLine("INVALID");
+}
 tester.Test();
 //Stopwatch stopwatch = Stopwatch.StartNew();
 //Runner runner = new Runner();

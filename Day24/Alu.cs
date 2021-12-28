@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,19 @@ namespace Day24
 {
     public class Alu : ICloneable
     {
-        private int w = 0;
-        private int x = 0;
-        private int y = 0;
-        private int z = 0;
+        private long w = 0;
+        private long x = 0;
+        private long y = 0;
+        private long z = 0;
 
         private IEnumerable<string> Monad;
+        private IEnumerable<string> BinaryProgram;
         private string MonadMNr = "";
 
         public Alu(IEnumerable<string> monad)
         {
             Monad = monad ?? throw new ArgumentNullException(nameof(monad));
+            BinaryProgram = InputHelper.ReadComplateTextFile("BinaryProgram.txt");
         }
 
         public bool TestMonad(long mNr)
@@ -26,10 +29,10 @@ namespace Day24
             MonadMNr = mNr.ToString();
             if (MonadMNr.Contains('0')) return false;
             Reset();
-            int i = 0;
+            long i = 0;
             foreach (string ins in Monad)
             {
-                InstructionInterpeter(ins.Split(' '));
+                Instructionlongerpeter(ins.Split(' '));
                 i++;
             }
             return z == 0; 
@@ -44,70 +47,71 @@ namespace Day24
             y = 0;
             z = 0;
         }
-        public bool TestPart(int p, int nr, int zV, int expected)
+        public bool TestPart(long p, long nr, long zV, long expected)
         {
             MonadMNr = nr.ToString();
             w = 0;
             x = 0;
             y = 0;
             z = zV;
-            int highestValid = 0;
-            int inp = 0;
+            long highestValid = 0;
+            long inp = 0;
             foreach (string ins in Monad)
             {
                 if (ins.Split(' ')[0] == "inp") inp++;
                 if (p == inp)
                 {
-                    InstructionInterpeter(ins.Split(' '));
+                    Instructionlongerpeter(ins.Split(' '));
                 }
             }
             if (z == expected) return true;
 
             return false;
         }
-        public int Part(int p, int nr, int zV)
+        public long Part(long p, long nr, long zV)
         {
             MonadMNr = nr.ToString();
             w = 0;
             x = 0;
             y = 0;
             z = zV;
-            int highestValid = 0;
-            int inp = 0;
+            long highestValid = 0;
+            long inp = 0;
             foreach (string ins in Monad)
             {
-                if (ins.Split(' ')[0] == "inp") inp++;
+                var sp = ins.Split(' ');
+                if (sp[0] == "inp") inp++;
                 if (p == inp)
                 {
-                    InstructionInterpeter(ins.Split(' '));
+                    Instructionlongerpeter(sp);
                 }
             }
             return z;
         }
-        public void InstructionInterpeter(string[] sp)
+        public void Instructionlongerpeter(string[] sp)
         {
             if (sp[0] == "inp")
             {
                 switch (sp[1])
                 {
                     case "w":
-                        Inp(ref w, int.Parse(MonadMNr.Substring(0, 1)));
+                        Inp(ref w, long.Parse(MonadMNr.Substring(0, 1)));
                         MonadMNr = MonadMNr.Remove(0, 1);
                         break;
                     case "x":
-                        Inp(ref x, int.Parse(MonadMNr.Substring(0, 1)));
+                        Inp(ref x, long.Parse(MonadMNr.Substring(0, 1)));
                         MonadMNr = MonadMNr.Remove(0, 1);
                         break;
                     case "y":
-                        Inp(ref y, int.Parse(MonadMNr.Substring(0, 1)));
+                        Inp(ref y, long.Parse(MonadMNr.Substring(0, 1)));
                         MonadMNr = MonadMNr.Remove(0, 1);
                         break;
                     case "z":
-                        Inp(ref z, int.Parse(MonadMNr.Substring(0, 1)));
+                        Inp(ref z, long.Parse(MonadMNr.Substring(0, 1)));
                         MonadMNr = MonadMNr.Remove(0, 1);
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else if (sp[0] == "add")
@@ -127,7 +131,7 @@ namespace Day24
                         Add(ref z, GetValue(sp[2]));
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else if (sp[0] == "mul")
@@ -147,7 +151,7 @@ namespace Day24
                         Mul(ref z, GetValue(sp[2]));
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else if (sp[0] == "div")
@@ -167,7 +171,7 @@ namespace Day24
                         Div(ref z, GetValue(sp[2]));
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else if (sp[0] == "mod")
@@ -187,7 +191,7 @@ namespace Day24
                         Mod(ref z, GetValue(sp[2]));
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else if (sp[0] == "eql")
@@ -207,16 +211,16 @@ namespace Day24
                         Eql(ref z, GetValue(sp[2]));
                         break;
                     default:
-                        break;
+                        throw new Exception();
                 }
             }
             else throw new NotImplementedException();
         }
 
-        private int GetValue(string s)
+        private long GetValue(string s)
         {
-            int v = 0;
-            if (int.TryParse(s, out int value)) v = value;
+            long v = 0;
+            if (long.TryParse(s, out long value)) v = value;
             else
             {
                 switch (s)
@@ -240,35 +244,50 @@ namespace Day24
             return v;
         }
 
-        public void Inp(ref int a, int b)
+        public (long w, long x, long y, long z) ConvertToBinary(long toConvert)
+        {
+            Reset();
+            w = toConvert;
+            foreach (var ins in BinaryProgram)
+            {
+                if (ins == "inp w") continue;
+                Instructionlongerpeter(ins.Split(' '));
+            }
+            return (w, x, y, z);
+        }
+
+        public void Inp(ref long a, long b)
         {
             a = b;
         }
-        public void Add(ref int a, int b)
+        public void Add(ref long a, long b)
         {
             a = a + b;
         }
-        public void Mul(ref int a, int b)
+        public void Mul(ref long a, long b)
         {
             a = a * b;
         }
-        public void Div(ref int a, int b)
+        public void Div(ref long a, long b)
         {
             if(a == 0 || b == 0)
             {
                 return;
             }
-            a = a/b;
+            double da = (double)a / (double)b;
+            da = Math.Truncate(da);
+            a = (long)da;
         }
-        public void Mod(ref int a, int b)
+        public void Mod(ref long a, long b)
         {
+            
             if (a == 0 || b == 0)
             {
                 return;
             }
-            a = a%b;
+            a = (Math.Abs(a * b) + a) % b;
         }
-        public void Eql(ref int a, int b)
+        public void Eql(ref long a, long b)
         {
             a = a == b ? 1 : 0;
         }

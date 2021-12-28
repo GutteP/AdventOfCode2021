@@ -53,6 +53,11 @@ namespace Library
             }
         }
 
+        public int? Get((int y, int x) p)
+        {
+            return Positions[p.y, p.x];
+        }
+
         public void TickAll(bool down = false)
         {
             for (int y = 0; y < Positions.GetLength(1); y++)
